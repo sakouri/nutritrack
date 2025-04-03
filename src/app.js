@@ -7,10 +7,10 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public')); 
+app.use(express.static('public')); // gérer les fichiers statiques
 
 // Routes
 const utilisateurRoutes = require('./routes/utilisateur.routes');
@@ -29,11 +29,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/nutritrack', {
   console.log('Connecté à MongoDB');
   // vérifier la connexion
   mongoose.connection.db.admin().ping()
-    .then(() => console.log('MongoDB répond correctement'))
-    .catch(err => console.error('Erreur ping MongoDB:', err));
+    .then(() => console.log('MongoDB OK'))
+    .catch(err => console.error('Erreur MongoDB:', err));
 })
 .catch(err => console.error('Erreur de connexion MongoDB:', err));
-
 
 app.get('*', (req, res) => {
   if (!req.path.startsWith('/api')) {

@@ -81,11 +81,6 @@ function updateMealsList(meals) {
                 <strong>${meal.nom}</strong>
                 <div>${meal.calories} kcal</div>
             </div>
-            <div>
-                <small>P: ${meal.proteines}g</small>
-                <small>G: ${meal.glucides}g</small>
-                <small>L: ${meal.lipides}g</small>
-            </div>
         `;
         mealsList.appendChild(mealElement);
     });
@@ -172,7 +167,7 @@ document.getElementById('updateGoalsForm').addEventListener('submit', async (e) 
             })
         });
 
-        if (!response.ok) throw new Error('Erreur de màj des goals');
+        if (!response.ok) throw new Error('Erreur de maj des goals');
         
         const goals = await response.json();
         updateGoalsDisplay(goals);
