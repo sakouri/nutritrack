@@ -42,34 +42,41 @@
              <section class="card" id="goalsSection">
                     <h2>Objectifs Nutritionnels</h2>
                     <div class="progress-container">
-                        <div class="progress-item">
-                            <label>Calories</label>
-                            <div class="progress-bar">
-                                <div class="progress" id="caloriesProgress"></div>
+                        <form id="updateGoalsForm">
+                            <div class="progress-item">
+                                <label>Calories</label>
+                                <input type="number" name="caloriesQuotidiennes" placeholder="Calories quotidiennes" required>
+                                <div class="progress-bar">
+                                    <div class="progress" id="caloriesProgress"></div>
+                                </div>
+                                <span id="caloriesValue">0/2000 kcal</span>
                             </div>
-                            <span id="caloriesValue">0/2000 kcal</span>
-                        </div>
-                        <div class="progress-item">
-                            <label>Protéines</label>
-                            <div class="progress-bar">
-                                <div class="progress" id="proteinesProgress"></div>
+                            <div class="progress-item">
+                                <label>Protéines</label>
+                                <input type="number" name="proteinesQuotidiennes" placeholder="Protéines quotidiennes" required>
+                                <div class="progress-bar">
+                                    <div class="progress" id="proteinesProgress"></div>
+                                </div>
+                                <span id="proteinesValue">0/150 g</span>
                             </div>
-                            <span id="proteinesValue">0/150 g</span>
-                        </div>
-                        <div class="progress-item">
-                            <label>Glucides</label>
-                            <div class="progress-bar">
-                                <div class="progress" id="glucidesProgress"></div>
+                            <div class="progress-item">
+                                <label>Glucides</label>
+                                <input type="number" name="glucidesQuotidiens" placeholder="Glucides quotidiens" required>
+                                <div class="progress-bar">
+                                    <div class="progress" id="glucidesProgress"></div>
+                                </div>
+                                <span id="glucidesValue">0/250 g</span>
                             </div>
-                            <span id="glucidesValue">0/250 g</span>
-                        </div>
-                        <div class="progress-item">
-                            <label>Lipides</label>
-                            <div class="progress-bar">
-                                <div class="progress" id="lipidesProgress"></div>
+                            <div class="progress-item">
+                                <label>Lipides</label>
+                                <input type="number" name="lipidesQuotidiens" placeholder="Lipides quotidiens" required>
+                                <div class="progress-bar">
+                                    <div class="progress" id="lipidesProgress"></div>
+                                </div>
+                                <span id="lipidesValue">0/70 g</span>
                             </div>
-                            <span id="lipidesValue">0/70 g</span>
-                        </div>
+                            <button type="submit">Mettre à jour les objectifs</button>
+                        </form>
                     </div>
                 </section>
 

@@ -1,4 +1,3 @@
-
 const authForms = document.getElementById('authForms');
 const loginForm = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');
@@ -6,7 +5,6 @@ const showRegisterLink = document.getElementById('showRegister');
 const showLoginLink = document.getElementById('showLogin');
 const dashboard = document.getElementById('dashboard');
 const logoutBtn = document.getElementById('logoutBtn');
-
 
 showRegisterLink.addEventListener('click', (e) => {
     e.preventDefault();
@@ -19,7 +17,6 @@ showLoginLink.addEventListener('click', (e) => {
     registerForm.classList.add('hidden');
     loginForm.classList.remove('hidden');
 });
-
 
 document.getElementById('inscriptionForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -41,14 +38,12 @@ document.getElementById('inscriptionForm').addEventListener('submit', async (e) 
         if (!response.ok) throw new Error('Erreur d\'inscription');
         
         const data = await response.json();
-        // connexion qd on s'inscrit
         handleLogin(formData.get('email'), formData.get('motDePasse'));
     } catch (error) {
         alert('Erreur lors de l\'inscription: ' + error.message);
     }
 });
 
-// connexion
 document.getElementById('connexionForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -71,11 +66,9 @@ async function handleLogin(email, password) {
         if (!response.ok) throw new Error('Identifiants invalides');
         
         const data = await response.json();
-        localStorage.setItem('token', data.token);
         localStorage.setItem('userId', data.utilisateur.id);
         localStorage.setItem('userName', data.utilisateur.nom);
         
-        // afficher le dashboard
         authForms.classList.add('hidden');
         dashboard.classList.remove('hidden');
 
@@ -85,9 +78,7 @@ async function handleLogin(email, password) {
     }
 }
 
-// déconnexion
 logoutBtn.addEventListener('click', () => {
-    localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('userName');
     dashboard.classList.add('hidden');
@@ -96,10 +87,9 @@ logoutBtn.addEventListener('click', () => {
     registerForm.classList.add('hidden');
 });
 
-// vérifier si un user est déjà connecté
 window.addEventListener('load', () => {
-    const token = localStorage.getItem('token');
-    if (token) {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
         authForms.classList.add('hidden');
         dashboard.classList.remove('hidden');
         window.initDashboard();

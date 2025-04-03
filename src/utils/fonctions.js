@@ -3,7 +3,12 @@ const R = require('ramda');
 // fonctions pures pour les calculs nutritionnels
 const calculerTotalJournalier = R.pipe(
   R.map(R.pick(['calories', 'proteines', 'glucides', 'lipides'])),
-  R.reduce(R.mergeWith(R.add), { calories: 0, proteines: 0, glucides: 0, lipides: 0 })
+  R.reduce((acc, meal) => ({
+    calories: acc.calories + meal.calories,
+    proteines: acc.proteines + meal.proteines,
+    glucides: acc.glucides + meal.glucides,
+    lipides: acc.lipides + meal.lipides
+  }), { calories: 0, proteines: 0, glucides: 0, lipides: 0 })
 );
 
 const verifierGoal = (total, goal) => ({

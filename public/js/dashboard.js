@@ -1,4 +1,3 @@
-
 window.initDashboard = async function() {
     await Promise.all([
         loadUserGoals(),
@@ -7,15 +6,10 @@ window.initDashboard = async function() {
     ]);
 };
 
-// afficher les goals d'un user
 async function loadUserGoals() {
     try {
         const userId = localStorage.getItem('userId');
-        const response = await fetch(`/api/utilisateurs/${userId}/goals`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
+        const response = await fetch(`/api/utilisateurs/${userId}/goals`);
         
         if (!response.ok) throw new Error('Erreur de chargement des objectifs');
         
@@ -28,15 +22,10 @@ async function loadUserGoals() {
     }
 }
 
-// afficher les repas
 async function loadMeals() {
     try {
         const userId = localStorage.getItem('userId');
-        const response = await fetch(`/api/meals/utilisateur/${userId}`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
+        const response = await fetch(`/api/meals/utilisateur/${userId}`);
         
         if (!response.ok) throw new Error('Erreur de chargement des repas');
         
@@ -49,7 +38,6 @@ async function loadMeals() {
     }
 }
 
-// maj des goals
 function updateGoalsDisplay(goals) {
     document.getElementById('caloriesValue').textContent = `0/${goals.caloriesQuotidiennes} kcal`;
     document.getElementById('proteinesValue').textContent = `0/${goals.proteinesQuotidiennes} g`;
@@ -57,7 +45,6 @@ function updateGoalsDisplay(goals) {
     document.getElementById('lipidesValue').textContent = `0/${goals.lipidesQuotidiens} g`;
 }
 
-// bar de progression
 function updateProgressBars(total = { calories: 0, proteines: 0, glucides: 0, lipides: 0 }) {
     const goals = {
         calories: parseInt(document.getElementById('caloriesValue').textContent.split('/')[1]),
@@ -82,7 +69,6 @@ function updateProgress(nutrient, current, goal) {
     valueDisplay.textContent = `${current}/${goal} ${nutrient === 'calories' ? 'kcal' : 'g'}`;
 }
 
-// maj des repas
 function updateMealsList(meals) {
     const mealsList = document.getElementById('mealsList');
     mealsList.innerHTML = '';
@@ -105,7 +91,6 @@ function updateMealsList(meals) {
     });
 }
 
-// recommandations
 function generateRecommendations(total) {
     const recommendationsList = document.getElementById('recommendationsList');
     recommendationsList.innerHTML = '';
@@ -147,8 +132,7 @@ document.getElementById('addMealForm').addEventListener('submit', async (e) => {
         const response = await fetch('/api/meals', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 utilisateurId: localStorage.getItem('userId'),
@@ -166,5 +150,34 @@ document.getElementById('addMealForm').addEventListener('submit', async (e) => {
         await loadMeals();
     } catch (error) {
         alert('Erreur lors de l\'ajout du repas: ' + error.message);
+    }
+});
+
+document.getElementById('updateGoalsForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    
+    try {
+        const userId = localStorage.getItem('userId');
+        const response = await fetch(`/api/utilisateurs/${userId}/goals`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                caloriesQuotidiennes: Number(formData.get('caloriesQuotidiennes')),
+                proteinesQuotidiennes: Number(formData.get('proteinesQuotidiennes')),
+                glucidesQuotidiens: Number(formData.get('glucidesQuotidiens')),
+                lipidesQuotidiens: Number(formData.get('lipidesQuotidiens'))
+            })
+        });
+
+        if (!response.ok) throw new Error('Erreur de màj des goals');
+        
+        const goals = await response.json();
+        updateGoalsDisplay(goals);
+        await loadMeals();
+    } catch (error) {
+        alert('Erreur lors de la maj des goals: ' + error.message);
     }
 });

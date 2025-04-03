@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
 // Obtenir tous les repas d'un utilisateur
 router.get('/utilisateur/:id', async (req, res) => {
   try {
-    console.log('Recherche des repas pour l\'utilisateur:', req.params.id);
+    console.log('Récupération repas:', req.params.id);
     const meals = await Meal.find({ utilisateurId: req.params.id });
     const total = R.pipe(
       R.map(R.pick(['calories', 'proteines', 'glucides', 'lipides'])),

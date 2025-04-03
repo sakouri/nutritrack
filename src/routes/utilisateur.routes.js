@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const R = require('ramda');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const Utilisateur = require('../models/utilisateur.model');
 
 // Inscription utilisateur
@@ -36,8 +35,7 @@ router.post('/connexion', async (req, res) => {
       return res.status(400).json({ message: 'Mot de passe incorrect' });
     }
 
-    const token = jwt.sign({ id: utilisateur._id }, process.env.JWT_SECRET);
-    res.json({ token, utilisateur: { id: utilisateur._id, nom: utilisateur.nom } });
+    res.json({ utilisateur: { id: utilisateur._id, nom: utilisateur.nom } });
   } catch (err) {
     console.error('Erreur lors de la connexion:', err);
     res.status(500).json({ message: err.message });
@@ -52,11 +50,10 @@ router.post('/:id/goals', async (req, res) => {
       return res.status(404).json({ message: 'Utilisateur non trouvé' });
     }
 
-    // Remplace ou ajoute le goal
     if (utilisateur.goals.length > 0) {
-      utilisateur.goals[0] = req.body; // maj le goal 
+      utilisateur.goals[0] = req.body;
     } else {
-      utilisateur.goals.push(req.body); // ajoute un nouveau goal
+      utilisateur.goals.push(req.body);
     }
     
     await utilisateur.save();
