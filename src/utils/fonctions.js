@@ -1,6 +1,5 @@
 const R = require('ramda');
 
-// fonctions pures pour les calculs nutritionnels
 const calculerTotalJournalier = R.pipe(
   R.map(R.pick(['calories', 'proteines', 'glucides', 'lipides'])),
   R.reduce((acc, meal) => ({
@@ -35,6 +34,7 @@ const genererRecommandations = (total, goal) => {
   
   return recommandations;
 };
+
 
 module.exports = {
   calculerTotalJournalier,

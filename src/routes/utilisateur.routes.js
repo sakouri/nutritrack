@@ -24,7 +24,7 @@ router.post('/inscription', async (req, res) => {
 // Connexion utilisateur
 router.post('/connexion', async (req, res) => {
   try {
-    console.log('Tentative de connexion avec:', req.body);
+    console.log('Tentative de connexion avec:', req.body); 
     const utilisateur = await Utilisateur.findOne({ email: req.body.email });
     if (!utilisateur) {
       return res.status(400).json({ message: 'Utilisateur non trouvé' });
@@ -45,11 +45,11 @@ router.post('/connexion', async (req, res) => {
 // Ajouter ou MAJ le goal
 router.post('/:id/goals', async (req, res) => {
   try {
-    const utilisateur = await Utilisateur.findById(req.params.id);
+    const utilisateur = await Utilisateur.findById(req.params.id); // chercher l'user dans l'url 
     if (!utilisateur) {
       return res.status(404).json({ message: 'Utilisateur non trouvé' });
     }
-
+// si un goal existe déjà
     if (utilisateur.goals.length > 0) {
       utilisateur.goals[0] = req.body;
     } else {
@@ -59,7 +59,7 @@ router.post('/:id/goals', async (req, res) => {
     await utilisateur.save();
     res.status(201).json(utilisateur.goals[0]);
   } catch (err) {
-    console.error('Erreur lors de la mise à jour du goal:', err);
+    console.error('Erreur lors de la maj du goal:', err);
     res.status(400).json({ message: err.message });
   }
 });
