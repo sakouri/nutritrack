@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriTrack</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div id="authForms" class="auth-container">
+            <div class="form-container" id="loginForm">
+                <h2>Connexion</h2>
+                <form id="connexionForm">
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="motDePasse" placeholder="Mot de passe" required>
+                    <button type="submit">Se connecter</button>
+                </form>
+                <p>Pas de compte ? <a href="#" id="showRegister">S'inscrire</a></p>
+            </div>
+
+            <div class="form-container hidden" id="registerForm">
+                <h2>Inscription</h2>
+                <form id="inscriptionForm">
+                    <input type="text" name="nom" placeholder="Nom" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="motDePasse" placeholder="Mot de passe" required>
+                    <button type="submit">S'inscrire</button>
+                </form>
+                <p>Déjà inscrit ? <a href="#" id="showLogin">Se connecter</a></p>
+            </div>
+        </div>
+
+        <div id="dashboard" class="dashboard hidden">
+            <header class="dashboard-header">
+                <h1>Tableau de bord</h1>
+                <button id="logoutBtn" class="logout-btn">Déconnexion</button>
+            </header>
+
+            <div class="dashboard-grid">
+             <section class="card" id="goalsSection">
+                    <h2>Objectifs Nutritionnels</h2>
+                    <div class="progress-container">
+                        <div class="progress-item">
+                            <label>Calories</label>
+                            <div class="progress-bar">
+                                <div class="progress" id="caloriesProgress"></div>
+                            </div>
+                            <span id="caloriesValue">0/2000 kcal</span>
+                        </div>
+                        <div class="progress-item">
+                            <label>Protéines</label>
+                            <div class="progress-bar">
+                                <div class="progress" id="proteinesProgress"></div>
+                            </div>
+                            <span id="proteinesValue">0/150 g</span>
+                        </div>
+                        <div class="progress-item">
+                            <label>Glucides</label>
+                            <div class="progress-bar">
+                                <div class="progress" id="glucidesProgress"></div>
+                            </div>
+                            <span id="glucidesValue">0/250 g</span>
+                        </div>
+                        <div class="progress-item">
+                            <label>Lipides</label>
+                            <div class="progress-bar">
+                                <div class="progress" id="lipidesProgress"></div>
+                            </div>
+                            <span id="lipidesValue">0/70 g</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card" id="addMealSection">
+                    <h2>Ajouter un repas</h2>
+                    <form id="addMealForm">
+                        <input type="text" name="nom" placeholder="Nom du repas" required>
+                        <input type="number" name="calories" placeholder="Calories" required>
+                        <input type="number" name="proteines" placeholder="Protéines (g)" required>
+                        <input type="number" name="glucides" placeholder="Glucides (g)" required>
+                        <input type="number" name="lipides" placeholder="Lipides (g)" required>
+                        <button type="submit">Ajouter</button>
+                    </form>
+                </section>
+
+                <section class="card" id="mealsSection">
+                    <h2>Mes Repas</h2>
+                    <div class="meals-list" id="mealsList">
+                    </div>
+                </section>
+
+                <section class="card" id="recommendationsSection">
+                    <h2>Recommandations</h2>
+                    <div class="recommendations-list" id="recommendationsList">
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
